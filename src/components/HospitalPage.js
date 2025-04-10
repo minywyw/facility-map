@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import CategoryButtons from "./CategoryButtons";
 import MapComponent from "./MapComponent";
-import hospitals from "../data/병원.json";
 import FacilityCardList from "./FacilityCardList";
 
 const HospitalPage = () => {
@@ -10,14 +10,21 @@ const HospitalPage = () => {
   const [isCardListVisible, setIsCardListVisible] = useState(true);
   const cardRefs = useRef({});
 
-  // 병원 데이터 로드 (id와 type 추가)
+  // 병원 데이터 API에서 로드
   useEffect(() => {
-    const hospitalsWithType = hospitals.map((h) => ({
-      ...h,
-      type: "병원",
-      id: `hospital_${h.id}`, // 고유 ID
-    }));
-    setFacilities(hospitalsWithType);
+    axios
+      .get("http://localhost:8000/places/병원")
+      .then((res) => {
+        const hospitalsWithType = res.data.map((h) => ({
+          ...h,
+          type: "병원",
+          id: `hospital_${h.id}`,
+        }));
+        setFacilities(hospitalsWithType);
+      })
+      .catch((err) => {
+        console.error("병원 데이터를 불러오는 데 실패했어요", err);
+      });
   }, []);
 
   // 마커 클릭 시: 선택 시설 ID 설정 + 카드 다시 보이게 + 스크롤 이동

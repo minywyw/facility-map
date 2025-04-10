@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import CategoryButtons from "./CategoryButtons";
 import MapComponent from "./MapComponent";
-import shelters from "../data/대피소.json";
 import FacilityCardList from "./FacilityCardList";
 
 const ShelterPage = () => {
@@ -10,14 +10,21 @@ const ShelterPage = () => {
   const [isCardListVisible, setIsCardListVisible] = useState(true);
   const cardRefs = useRef({});
 
-  // 대피소 데이터 로드 (id와 type 추가)
+  // 대피소 데이터 API에서 로드
   useEffect(() => {
-    const sheltersWithType = shelters.map((s) => ({
-      ...s,
-      type: "대피소",
-      id: `shelter_${s.id}`, // 고유 ID
-    }));
-    setFacilities(sheltersWithType);
+    axios
+      .get("http://localhost:8000/places/대피소")
+      .then((res) => {
+        const sheltersWithType = res.data.map((s) => ({
+          ...s,
+          type: "대피소소",
+          id: `shelter${s.id}`,
+        }));
+        setFacilities(sheltersWithType);
+      })
+      .catch((err) => {
+        console.error("대피소 데이터를 불러오는 데 실패했어요", err);
+      });
   }, []);
 
   // 마커 클릭 시: 선택 시설 ID 설정 + 카드 다시 보이게 + 스크롤 이동
