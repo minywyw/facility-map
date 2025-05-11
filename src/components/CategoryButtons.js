@@ -9,6 +9,7 @@ const CategoryButtons = () => {
     { path: "/", label: "정릉3동 보기" },
     { path: "/hospital", label: "병원 모아보기" },
     { path: "/shelter", label: "대피소 모아보기" },
+    { path: "/statistics", label: "통계 모아보기" }
   ];
 
   return (
