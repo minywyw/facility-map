@@ -13,14 +13,14 @@ const StatisticsPage = () => {
   useEffect(() => {
     // 병원 데이터 받아와서 통계 계산
     axios
-      .get("http://localhost:8000/places/병원")
+      .get("http://localhost:8000/places?category=병원")
       .then((res) => {
         const hospitals = res.data;
 
         // 병원 설립 연도별 통계
         const yearMap = {};
         hospitals.forEach((h) => {
-          const year = h.builtYear;
+          const year = h.built_year;
           if (year) {
             yearMap[year] = (yearMap[year] || 0) + 1;
           }
@@ -33,9 +33,9 @@ const StatisticsPage = () => {
         // 병원 누적 운영 수
         const cumulativeMap = {};
         hospitals
-          .filter((h) => h.status === "운영 중" && h.builtYear)
+          .filter((h) => h.status === "운영 중" && h.built_year)
           .forEach((h) => {
-            const year = h.builtYear;
+            const year = h.built_year;
             cumulativeMap[year] = (cumulativeMap[year] || 0) + 1;
           });
         const sortedYears = Object.keys(cumulativeMap)
@@ -54,7 +54,7 @@ const StatisticsPage = () => {
 
     // 대피소 데이터 받아와서 통계 계산
     axios
-      .get("http://localhost:8000/places/대피소")
+      .get("http://localhost:8000/places?category=대피소")
       .then((res) => {
         const shelters = res.data;
 
