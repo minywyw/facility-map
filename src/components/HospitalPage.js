@@ -15,11 +15,12 @@ const HospitalPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/places/병원")
+      .get("http://localhost:8000/places?category=병원")
       .then((res) => {
         const hospitalsWithType = res.data.map((h) => ({
           ...h,
           type: "병원",
+          builtYear:h.built_year ,
           id: `hospital_${h.id}`,
         }));
         setFacilities(hospitalsWithType);

@@ -15,7 +15,7 @@ const ShelterPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/places/대피소")
+      .get("http://localhost:8000/places?category=대피소")
       .then((res) => {
         const sheltersWithType = res.data.map((s) => ({
           ...s,

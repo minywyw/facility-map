@@ -12,14 +12,15 @@ const MapPage = () => {
 
   // 시설 각각 API에서 로드 후 병합
   useEffect(() => {
-    const fetchHospitals = axios.get("http://localhost:8000/places/병원");
-    const fetchShelters = axios.get("http://localhost:8000/places/대피소");
+    const fetchHospitals = axios.get("http://localhost:8000/places?category=병원");
+    const fetchShelters = axios.get("http://localhost:8000/places?category=대피소");
   
     Promise.all([fetchHospitals, fetchShelters])
       .then(([res1, res2]) => {
         const hospitals = res1.data.map((f) => ({
           ...f,
           type: "병원",
+          builtYear:f.built_year ,
           id: `hospital_${f.id}`,
         }));
         const shelters = res2.data.map((f) => ({
