@@ -3,6 +3,7 @@ import axios from "axios";
 import MapComponent from "./MapComponent";
 import CategoryButtons from "./CategoryButtons";
 import FacilityCardList from "./FacilityCardList";
+import SliderComponent from "./Slider";
 
 const MapPage = () => {
   const [facilities, setFacilities] = useState([]);
@@ -51,6 +52,7 @@ const MapPage = () => {
 
   return (
     <div style={{ display: "flex" }}>
+      <SliderComponent /> {/* 슬라이더 */}
       {/* 지도 영역 */}
       <div style={{ flex: 1 }}>
         <CategoryButtons />
