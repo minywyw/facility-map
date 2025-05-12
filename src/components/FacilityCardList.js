@@ -43,7 +43,7 @@ const FacilityCardList = ({
   return (
     <div
       style={{
-        width: "30%",
+        width: "25%",
         padding: "1rem",
         backgroundColor: "#f8f8f8",
         height: "100vh",
