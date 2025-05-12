@@ -3,6 +3,7 @@ import axios from "axios";
 import CategoryButtons from "./CategoryButtons";
 import MapComponent from "./MapComponent";
 import FacilityCardList from "./FacilityCardList";
+import SliderComponent from "./Slider";
 
 const ShelterPage = () => {
   const [facilities, setFacilities] = useState([]);
@@ -13,7 +14,7 @@ const ShelterPage = () => {
   // 대피소 데이터 API에서 로드
   useEffect(() => {
     axios
-      .get("http://localhost:8000/places/대피소")
+      .get("http://localhost:8000/places?category=대피소")
       .then((res) => {
         const sheltersWithType = res.data.map((s) => ({
           ...s,
@@ -41,6 +42,7 @@ const ShelterPage = () => {
 
   return (
     <div style={{ display: "flex" }}>
+      <SliderComponent /> {/* 슬라이더 */}
       {/* 지도 영역 */}
       <div style={{ flex: 1 }}>
         <CategoryButtons />

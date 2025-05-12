@@ -8,12 +8,14 @@ import StatisticsPage from "./components/StatisticsPage"; // 통계 보기
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MapPage />} />
-        <Route path="/hospital" element={<HospitalPage />} />
-        <Route path="/shelter" element={<ShelterPage />} />
-        <Route path="/statistics" element={<StatisticsPage />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path="/" element={<MapPage />} />
+          <Route path="/hospital" element={<HospitalPage />} />
+          <Route path="/shelter" element={<ShelterPage />} />
+          <Route path="/statistics" element={<StatisticsPage />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

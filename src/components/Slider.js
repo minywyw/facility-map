@@ -19,7 +19,7 @@ const SliderComponent = () => {
     centerPadding: "40px",
     slidesToShow: 3,
     speed: 500,
-    arrows: true,
+    arrow : true,
     dots: true,
     dotsClass: "slick-dots custom-dots",
     appendDots: (dots) => (
@@ -34,7 +34,7 @@ const SliderComponent = () => {
     justifyContent: "center",
     alignItems: "center",
     fontSize: "24px",
-    margin: "0 10px",
+    margin: "0",
     transition: "transform 0.3s ease, color 0.3s ease"
   };
 
@@ -44,7 +44,7 @@ const SliderComponent = () => {
       style={{
         position: "absolute",
         bottom: "10px",
-        left: "50px",
+        left: "30px",
         width: "65%",
         fontSize: "20px",
         fontWeight: "bold",
@@ -67,19 +67,26 @@ const SliderComponent = () => {
       <style>{`
         .slick-center .slide-box {
           transform: scale(1.6);
-          color: rgb(230, 84, 30);
+          color: rgb(242, 93, 19);
         }
 
         .slick-prev, .slick-next {
-          z-index: 160;
+        z-index: 160;
         }
 
         .slick-prev {
-          left: -45px !important;
+          left: -10px !important; 
         }
 
         .slick-next {
-          right: -45px !important;
+          right: -10px !important;
+        }
+
+
+        .slick-prev::before,
+        .slick-next::before {
+          color:  rgb(4, 6, 161) !important;
+          font-size: 25px;
         }
 
         /* 기본 도트 커스터마이징 */
