@@ -3,13 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const SliderComponent = () => {
+const SliderComponent = ({ onYearChange, selectedYear }) => {
   const data = [
     "2000년", "2005년", "2010년", "2015년", "2020년",
-    "2022년", "2024년","2025년 1월", "2025년 2월", "2025년 3월" ,"2025년 4월", "2025년 5월"
+    "2022년", "2024년", "2025년 1월", "2025년 2월", "2025년 3월", "2025년 4월", "2025년 5월"
   ];
 
-  // 더미 2개 추가해서 슬라이드 수 맞추기
   const paddedData = [...data, "", ""];
 
   const settings = {
@@ -19,10 +18,22 @@ const SliderComponent = () => {
     centerPadding: "40px",
     slidesToShow: 3,
     speed: 500,
-    arrow : true,
+    arrows: true,
     dots: true,
     dotsClass: "slick-dots custom-dots",
-    appendDots: (dots) => (
+    initialSlide: data.findIndex(item => {
+      const match = item.match(/^(\d{4})년/);
+      return match && parseInt(match[1], 10) === selectedYear;
+    }),
+    beforeChange: (oldIndex, newIndex) => {
+      if (newIndex < data.length) {
+        const match = data[newIndex].match(/^(\d{4})년/);
+        if (match) {
+          onYearChange(parseInt(match[1], 10));
+        }
+      }
+    },
+    appendDots: dots => (
       <ul style={{ bottom: "-15px" }}>{dots.slice(0, data.length)}</ul>
     )
   };
@@ -64,14 +75,14 @@ const SliderComponent = () => {
         ))}
       </Slider>
 
-      <style>{`
+      <style>{`        
         .slick-center .slide-box {
           transform: scale(1.6);
           color: rgb(242, 93, 19);
         }
 
         .slick-prev, .slick-next {
-        z-index: 160;
+          z-index: 160;
         }
 
         .slick-prev {
@@ -81,7 +92,6 @@ const SliderComponent = () => {
         .slick-next {
           right: -10px !important;
         }
-
 
         .slick-prev::before,
         .slick-next::before {
