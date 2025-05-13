@@ -67,7 +67,7 @@ const SliderComponent = () => {
       <style>{`
         .slick-center .slide-box {
           transform: scale(1.6);
-          color: rgb(248, 101, 28);
+          color: rgb(244, 92, 17);
         }
 
         .slick-prev, .slick-next {
