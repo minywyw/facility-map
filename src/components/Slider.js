@@ -78,7 +78,7 @@ const SliderComponent = ({ onYearChange, selectedYear }) => {
       <style>{`        
         .slick-center .slide-box {
           transform: scale(1.6);
-          color: rgb(242, 93, 19);
+          color: rgb(244, 92, 17);
         }
 
         .slick-prev, .slick-next {
