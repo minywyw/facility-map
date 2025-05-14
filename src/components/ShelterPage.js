@@ -9,9 +9,9 @@ const ShelterPage = () => {
   const [facilities, setFacilities] = useState([]);
   const [selectedFacilityId, setSelectedFacilityId] = useState(null);
   const [isCardListVisible, setIsCardListVisible] = useState(true);
+  const [selectedYear, setSelectedYear] = useState(2025);
   const cardRefs = useRef({});
 
-  // 대피소 데이터 API에서 로드
   useEffect(() => {
     axios
       .get("http://localhost:8000/places?category=대피소")
@@ -19,7 +19,8 @@ const ShelterPage = () => {
         const sheltersWithType = res.data.map((s) => ({
           ...s,
           type: "대피소",
-          id: `shelter${s.id}`,
+          builtYear: s.built_year,
+          id: `shelter_${s.id}`
         }));
         setFacilities(sheltersWithType);
       })
@@ -28,30 +29,37 @@ const ShelterPage = () => {
       });
   }, []);
 
-  // 마커 클릭 시: 선택 시설 ID 설정 + 카드 다시 보이게 + 스크롤 이동
   const handleMarkerClick = (facility) => {
     setSelectedFacilityId(facility.id);
     setIsCardListVisible(true);
+    // 카드 리스트로 스크롤
     setTimeout(() => {
       cardRefs.current[facility.id]?.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "start"
       });
     }, 100);
   };
 
+  const filteredFacilities = facilities.filter(
+    (f) => f.builtYear <= selectedYear
+  );
+
   return (
     <div style={{ display: "flex" }}>
-      <SliderComponent /> {/* 슬라이더 */}
-      {/* 지도 영역 */}
+      <SliderComponent
+        selectedYear={selectedYear}
+        onYearChange={setSelectedYear}
+      />
       <div style={{ flex: 1 }}>
         <CategoryButtons />
-        <MapComponent facilities={facilities} onMarkerClick={handleMarkerClick} />
+        <MapComponent
+          facilities={filteredFacilities}
+          onMarkerClick={handleMarkerClick}
+        />
       </div>
-
-      {/* 상세정보 카드 리스트 영역 */}
       <FacilityCardList
-        facilities={facilities}
+        facilities={filteredFacilities}
         selectedFacilityId={selectedFacilityId}
         onCloseCard={() => setSelectedFacilityId(null)}
         cardRefs={cardRefs}
