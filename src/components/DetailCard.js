@@ -14,11 +14,8 @@ const DetailCard = ({ facility, isSelected }) => {
     >
       <h3 style={{ marginTop: 0 }}>{facility.name}</h3>
       <p>상태: {facility.status}</p>
+      <p>설립 연도: {facility.builtYear}년</p>
 
-      {/* 유형에 따라 다른 정보 출력 */}
-      {facility.type === "병원" && (
-        <p>설립 연도: {facility.builtYear}년</p>
-      )}
       {facility.type === "대피소" && (
         <p>수용 인원: {facility.capacity}명</p>
       )}
