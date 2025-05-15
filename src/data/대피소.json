@@ -6,7 +6,8 @@
       "lng": 127.002665516217,
       "category": "대피소",
       "status": "운영 중",
-      "capacity": 146
+      "capacity": 146,
+      "built_year": 1999
     },
     {
       "id": 2,
@@ -15,7 +16,8 @@
       "lng": 127.005909299763,
       "category": "대피소",
       "status": "운영 중",
-      "capacity": 2304
+      "capacity": 2304,
+      "built_year": 2003
     },
     {
       "id": 3,
@@ -24,6 +26,7 @@
       "lng": 127.007784277192,
       "category": "대피소",
       "status": "운영 중",
-      "capacity": 9612
+      "capacity": 9612,
+      "built_year": 2006
     }
 ]
