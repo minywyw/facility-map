@@ -11,32 +11,32 @@ const SliderComponent = ({ onYearChange, selectedYear }) => {
 
   const paddedData = [...data, "", ""];
 
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: false,
-    centerPadding: "40px",
-    slidesToShow: 3,
-    speed: 500,
-    arrows: true,
-    dots: true,
-    dotsClass: "slick-dots custom-dots",
-    initialSlide: data.findIndex(item => {
-      const match = item.match(/^(\d{4})년/);
-      return match && parseInt(match[1], 10) === selectedYear;
-    }),
-    beforeChange: (oldIndex, newIndex) => {
-      if (newIndex < data.length) {
-        const match = data[newIndex].match(/^(\d{4})년/);
-        if (match) {
-          onYearChange(parseInt(match[1], 10));
+    const settings = {
+      className: "center",
+      centerMode: true,
+      infinite: false,
+      centerPadding: "40px",
+      slidesToShow: 3,
+      speed: 500,
+      arrows: true,
+      dots: true,
+      dotsClass: "slick-dots custom-dots",
+      initialSlide: paddedData.findIndex(item => {
+        const match = item.match(/^(\d{4})년/);
+        return match && parseInt(match[1], 10) === selectedYear;
+      }),
+      afterChange: (currentIndex) => {
+        if (currentIndex < data.length) {
+          const match = paddedData[currentIndex].match(/^(\d{4})년/);
+          if (match) {
+            onYearChange(parseInt(match[1], 10));
+          }
         }
-      }
-    },
-    appendDots: dots => (
-      <ul style={{ bottom: "-15px" }}>{dots.slice(0, data.length)}</ul>
-    )
-  };
+      },
+      appendDots: dots => (
+        <ul style={{ bottom: "-15px" }}>{dots.slice(0, data.length)}</ul>
+      )
+    };
 
   const slideStyle = {
     height: "100px",
